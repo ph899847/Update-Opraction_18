@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Update Product</title>
+<style>
+body{font-family:Arial;background:#eee;padding:30px}
+.box{max-width:350px;margin:auto;background:white;padding:20px;border-radius:10px}
+input,select,button{width:100%;padding:10px;margin:8px 0;box-sizing:border-box}
+button{background:blue;color:white;border:0;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Update Product</h2>
+
+<select id="p" onchange="load()">
+<option value="0">Select Product</option>
+<option value="1">Laptop</option>
+<option value="2">Mobile</option>
+</select>
+
+<input id="n" placeholder="Product Name" required>
+<input id="price" type="number" placeholder="Price" required>
+<button onclick="update()">Update Product</button>
+<p id="msg"></p>
+</div>
+
+<script>
+let products={
+1:{n:"Laptop",price:50000},
+2:{n:"Mobile",price:20000}
+};
+
+function load(){
+let p=products[document.getElementById("p").value];
+document.getElementById("n").value=p?p.n:"";
+document.getElementById("price").value=p?p.price:"";
+}
+
+function update(){
+let id=document.getElementById("p").value;
+let n=document.getElementById("n").value.trim();
+let price=Number(document.getElementById("price").value);
+
+if(!products[id]||!n||price<=0){
+document.getElementById("msg").innerText="Enter valid details!";
+return;
+}
+products[id]={n,price};
+document.getElementById("p").options[document.getElementById("p").selectedIndex].text=n;
+document.getElementById("msg").innerText="Product Updated Successfully!";
+}
+</script>
+</body>
+</html>
